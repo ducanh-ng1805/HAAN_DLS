@@ -50,11 +50,11 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             <div>
               <div className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-white">
                 <Image
-                  src="/logo.jpg"
+                  src="/logo-white.png"
                   alt="Trung tâm đào tạo & sát hạch Hà An"
-                  width={28}
-                  height={28}
-                  className="shrink-0 rounded"
+                  width={99}
+                  height={33}
+                  className="shrink-0"
                 />
                 TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
               </div>
