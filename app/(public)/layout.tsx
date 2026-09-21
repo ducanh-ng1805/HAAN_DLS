@@ -15,10 +15,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <div className="h-1 bg-primary" />
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-heading text-base font-semibold text-primary sm:text-lg"
-          >
+          <Link href="/" className="flex items-center gap-2 font-heading text-primary">
             <Image
               src="/logo.jpg"
               alt="Trung tâm đào tạo & sát hạch Hà An"
@@ -26,7 +23,14 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               height={36}
               className="shrink-0 rounded"
             />
-            <span className="leading-tight">TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN</span>
+            <span className="flex flex-col leading-tight">
+              <span className="text-sm font-semibold sm:text-base">
+                Trung tâm giáo dục nghề nghiệp Hà An
+              </span>
+              <span className="text-[11px] font-normal text-muted-foreground sm:text-xs">
+                TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
+              </span>
+            </span>
           </Link>
           <nav className="hidden gap-6 text-sm font-medium sm:flex">
             {NAV_LINKS.map((link) => (
@@ -48,7 +52,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         <div className="mx-auto max-w-6xl px-4 py-12 text-sm text-white/75">
           <div className="grid gap-8 sm:grid-cols-3">
             <div>
-              <div className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-white">
+              <div className="mb-2 flex items-center gap-2 font-heading text-white">
                 <Image
                   src="/logo-white.png"
                   alt="Trung tâm đào tạo & sát hạch Hà An"
@@ -56,7 +60,14 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                   height={33}
                   className="shrink-0"
                 />
-                TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
+                <span className="flex flex-col leading-tight">
+                  <span className="text-base font-semibold sm:text-lg">
+                    Trung tâm giáo dục nghề nghiệp Hà An
+                  </span>
+                  <span className="text-xs font-normal text-white/80 sm:text-sm">
+                    TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
+                  </span>
+                </span>
               </div>
               <p>TIÊN PHONG VỀ ĐÀO TẠO & SÁT HẠCH LÁI XE</p>
             </div>
