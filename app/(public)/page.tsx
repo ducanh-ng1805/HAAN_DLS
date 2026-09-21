@@ -7,42 +7,58 @@ import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { formatVNDate, shouldShowUploadedDate } from "@/lib/dates";
 
-const CATEGORY_STYLE: Record<
-  string,
-  { images: string[]; badge: string; border: string }
-> = {
-  "thong-bao": {
-    images: ["/images/hero-fleet.jpg", "/images/gallery/khu-vuc-sat-hach.jpg"],
-    badge: "bg-blue-100 text-blue-700",
-    border: "border-l-blue-500",
-  },
-  "quyet-dinh": {
-    images: ["/images/gallery/khu-vuc-sat-hach.jpg", "/images/gallery/khai-giang-tap-huan.jpg"],
-    badge: "bg-amber-100 text-amber-700",
-    border: "border-l-amber-500",
-  },
-  "quy-che-tuyen-sinh": {
-    images: ["/images/gallery/khai-giang-tap-huan.jpg"],
-    badge: "bg-emerald-100 text-emerald-700",
-    border: "border-l-emerald-500",
-  },
-  "quy-che-dao-tao": {
-    images: ["/images/gallery/lop-hoc-bien-bao.jpg"],
-    badge: "bg-purple-100 text-purple-700",
-    border: "border-l-purple-500",
-  },
-  "van-ban-phap-ly": {
-    images: ["/images/gallery/hoi-thi-giao-vien.jpg"],
-    badge: "bg-teal-100 text-teal-700",
-    border: "border-l-teal-500",
-  },
-  "thong-bao-trung-tam": {
-    images: ["/images/gallery/le-20-11.jpg"],
-    badge: "bg-rose-100 text-rose-700",
-    border: "border-l-rose-500",
-  },
+const CATEGORY_STYLE: Record<string, { badge: string; border: string }> = {
+  "thong-bao": { badge: "bg-blue-100 text-blue-700", border: "border-l-blue-500" },
+  "quyet-dinh": { badge: "bg-amber-100 text-amber-700", border: "border-l-amber-500" },
+  "quy-che-tuyen-sinh": { badge: "bg-emerald-100 text-emerald-700", border: "border-l-emerald-500" },
+  "quy-che-dao-tao": { badge: "bg-purple-100 text-purple-700", border: "border-l-purple-500" },
+  "van-ban-phap-ly": { badge: "bg-teal-100 text-teal-700", border: "border-l-teal-500" },
+  "thong-bao-trung-tam": { badge: "bg-rose-100 text-rose-700", border: "border-l-rose-500" },
 };
-const DEFAULT_STYLE = { images: ["/images/hero-fleet.jpg"], badge: "bg-primary/10 text-primary", border: "border-l-primary" };
+const DEFAULT_STYLE = { badge: "bg-primary/10 text-primary", border: "border-l-primary" };
+
+// Pool of real HAAN DLS photos to illustrate news items. Picked per title
+// keyword where possible, then de-duplicated against the pool so no two
+// items in the same list ever show the same photo.
+const NEWS_IMAGE_POOL = [
+  "/images/gallery/khu-vuc-sat-hach.jpg",
+  "/images/hero-fleet.jpg",
+  "/images/gallery/khai-giang-tap-huan.jpg",
+  "/images/gallery/lop-hoc-bien-bao.jpg",
+  "/images/gallery/hoi-thi-giao-vien.jpg",
+  "/images/gallery/le-20-11.jpg",
+  "/images/gallery/ngay-8-3.jpg",
+  "/images/gallery/giai-bong-da.jpg",
+];
+
+function preferredImageForTitle(title: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("sát hạch") || t.includes("kiểm tra") || t.includes("thi")) {
+    return "/images/gallery/khu-vuc-sat-hach.jpg";
+  }
+  if (t.includes("khai giảng") || t.includes("tuyển sinh")) {
+    return "/images/gallery/khai-giang-tap-huan.jpg";
+  }
+  if (t.includes("giáo viên") || t.includes("giảng viên")) {
+    return "/images/gallery/hoi-thi-giao-vien.jpg";
+  }
+  if (t.includes("đào tạo") || t.includes("khóa") || t.includes("chương trình")) {
+    return "/images/gallery/lop-hoc-bien-bao.jpg";
+  }
+  return "/images/hero-fleet.jpg";
+}
+
+function assignUniqueNewsImages(titles: string[]): string[] {
+  const used = new Set<string>();
+  return titles.map((title) => {
+    let image = preferredImageForTitle(title);
+    if (used.has(image)) {
+      image = NEWS_IMAGE_POOL.find((candidate) => !used.has(candidate)) ?? image;
+    }
+    used.add(image);
+    return image;
+  });
+}
 
 const HIGHLIGHTS = [
   {
@@ -88,7 +104,7 @@ export default async function HomePage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, color-mix(in oklch, var(--brand) 55%, transparent) 0%, color-mix(in oklch, var(--brand) 78%, transparent) 60%, color-mix(in oklch, var(--brand) 92%, transparent) 100%)",
+              "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.18) 68%, rgba(0,0,0,0) 100%), linear-gradient(0deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 40%)",
           }}
         />
         <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-24 sm:py-32">
@@ -144,12 +160,12 @@ export default async function HomePage() {
 
           {latestDocs && latestDocs.length > 0 ? (
             <div className="mt-8 flex flex-col gap-4">
-              {latestDocs.map((doc, index) => {
+              {assignUniqueNewsImages(latestDocs.map((d) => d.title)).map((image, index) => {
+                const doc = latestDocs[index];
                 const category = Array.isArray(doc.document_categories)
                   ? doc.document_categories[0]
                   : doc.document_categories;
                 const style = (category && CATEGORY_STYLE[category.slug]) || DEFAULT_STYLE;
-                const image = style.images[index % style.images.length];
                 return (
                   <Link key={doc.id} href={`/van-ban/${doc.id}`}>
                     <Card

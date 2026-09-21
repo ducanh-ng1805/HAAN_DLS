@@ -81,6 +81,24 @@ export interface Database {
           },
         ];
       };
+      staff: {
+        Row: {
+          id: string;
+          email: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -89,3 +107,4 @@ export interface Database {
 
 export type DocumentRow = Database["public"]["Tables"]["documents"]["Row"];
 export type DocumentCategoryRow = Database["public"]["Tables"]["document_categories"]["Row"];
+export type StaffRow = Database["public"]["Tables"]["staff"]["Row"];

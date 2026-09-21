@@ -5,7 +5,7 @@ import { signOut } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { AdminNav } from "../admin-nav";
 
-export default async function AdminDocumentsLayout({
+export default async function AdminStaffLayout({
   children,
 }: {
   children: React.ReactNode;
