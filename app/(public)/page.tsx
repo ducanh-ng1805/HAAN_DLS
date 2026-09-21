@@ -1,21 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
-import { GraduationCap, ShieldCheck, Car, ArrowRight, FileText } from "lucide-react";
+import { GraduationCap, ShieldCheck, Car, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { createClient } from "@/lib/supabase/server";
 import { formatVNDate, shouldShowUploadedDate } from "@/lib/dates";
 
-const CATEGORY_STYLE: Record<string, { badge: string; border: string }> = {
-  "thong-bao": { badge: "bg-blue-100 text-blue-700", border: "border-l-blue-500" },
-  "quyet-dinh": { badge: "bg-amber-100 text-amber-700", border: "border-l-amber-500" },
-  "quy-che-tuyen-sinh": { badge: "bg-emerald-100 text-emerald-700", border: "border-l-emerald-500" },
-  "quy-che-dao-tao": { badge: "bg-purple-100 text-purple-700", border: "border-l-purple-500" },
-  "van-ban-phap-ly": { badge: "bg-teal-100 text-teal-700", border: "border-l-teal-500" },
-  "thong-bao-trung-tam": { badge: "bg-rose-100 text-rose-700", border: "border-l-rose-500" },
+const CATEGORY_STYLE: Record<string, { badge: string }> = {
+  "thong-bao": { badge: "bg-blue-100 text-blue-700" },
+  "quyet-dinh": { badge: "bg-amber-100 text-amber-700" },
+  "quy-che-tuyen-sinh": { badge: "bg-emerald-100 text-emerald-700" },
+  "quy-che-dao-tao": { badge: "bg-purple-100 text-purple-700" },
+  "van-ban-phap-ly": { badge: "bg-teal-100 text-teal-700" },
+  "thong-bao-trung-tam": { badge: "bg-rose-100 text-rose-700" },
 };
-const DEFAULT_STYLE = { badge: "bg-primary/10 text-primary", border: "border-l-primary" };
+const DEFAULT_STYLE = { badge: "bg-primary/10 text-primary" };
 
 // Pool of real HAAN DLS photos to illustrate news items. Picked per title
 // keyword where possible, then de-duplicated against the pool so no two
@@ -159,7 +159,7 @@ export default async function HomePage() {
           </div>
 
           {latestDocs && latestDocs.length > 0 ? (
-            <div className="mt-8 flex flex-col gap-4">
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {assignUniqueNewsImages(latestDocs.map((d) => d.title)).map((image, index) => {
                 const doc = latestDocs[index];
                 const category = Array.isArray(doc.document_categories)
@@ -168,34 +168,32 @@ export default async function HomePage() {
                 const style = (category && CATEGORY_STYLE[category.slug]) || DEFAULT_STYLE;
                 return (
                   <Link key={doc.id} href={`/van-ban/${doc.id}`}>
-                    <Card
-                      className={`flex-row overflow-hidden border-l-4 p-0 transition-shadow hover:shadow-md ${style.border}`}
-                    >
-                      <div className="relative h-40 w-full shrink-0 sm:h-auto sm:w-64">
+                    <Card className="h-full overflow-hidden p-0 transition-shadow hover:shadow-md">
+                      <div className="relative aspect-[4/3] w-full">
                         <Image
                           src={image}
                           alt={doc.title}
                           fill
-                          sizes="(min-width: 640px) 256px, 100vw"
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover"
                         />
+                        {category ? (
+                          <Badge
+                            variant="secondary"
+                            className={`absolute top-3 left-3 border-transparent ${style.badge}`}
+                          >
+                            {category.label_vi}
+                          </Badge>
+                        ) : null}
                       </div>
-                      <div className="flex flex-1 flex-col justify-center gap-2 p-5">
-                        <div className="flex items-start justify-between gap-2">
-                          <CardTitle className="text-base leading-snug">{doc.title}</CardTitle>
-                          <FileText className="size-4 shrink-0 text-primary" />
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                          {category ? (
-                            <Badge variant="secondary" className={`border-transparent ${style.badge}`}>
-                              {category.label_vi}
-                            </Badge>
-                          ) : null}
+                      <div className="flex flex-col gap-2 p-5">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           <span>Ngày ký: {formatVNDate(doc.signed_date)}</span>
                           {shouldShowUploadedDate(doc.signed_date, doc.uploaded_date) && (
                             <span>· Đăng tải: {formatVNDate(doc.uploaded_date)}</span>
                           )}
                         </div>
+                        <CardTitle className="text-base leading-snug">{doc.title}</CardTitle>
                       </div>
                     </Card>
                   </Link>
