@@ -93,7 +93,7 @@ export default async function HomePage() {
     <div>
       <section className="bg-primary">
         <h1 className="sr-only">TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN</h1>
-        <div className="relative aspect-[1242/475] w-full">
+        <div className="relative aspect-[2027/776] w-full">
           <Image
             src="/images/hero-cover.jpg"
             alt="Trung tâm đào tạo & sát hạch Hà An - Tiên phong về đào tạo & sát hạch lái xe"
