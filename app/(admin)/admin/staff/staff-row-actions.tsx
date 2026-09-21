@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { removeStaff } from "@/app/actions/staff";
 
-export function StaffRowActions({ id, email }: { id: string; email: string }) {
+export function StaffRowActions({ id, email, isSelf }: { id: string; email: string; isSelf: boolean }) {
   const [pending, startTransition] = useTransition();
 
   function onDelete() {
@@ -18,6 +18,10 @@ export function StaffRowActions({ id, email }: { id: string; email: string }) {
         toast.error(e instanceof Error ? e.message : "Xóa thất bại.");
       }
     });
+  }
+
+  if (isSelf) {
+    return <div className="flex justify-end text-sm text-muted-foreground">Bạn</div>;
   }
 
   return (

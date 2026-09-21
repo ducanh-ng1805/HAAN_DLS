@@ -159,7 +159,7 @@ export default async function HomePage() {
           </div>
 
           {latestDocs && latestDocs.length > 0 ? (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 flex flex-col gap-6">
               {assignUniqueNewsImages(latestDocs.map((d) => d.title)).map((image, index) => {
                 const doc = latestDocs[index];
                 const category = Array.isArray(doc.document_categories)
@@ -168,13 +168,13 @@ export default async function HomePage() {
                 const style = (category && CATEGORY_STYLE[category.slug]) || DEFAULT_STYLE;
                 return (
                   <Link key={doc.id} href={`/van-ban/${doc.id}`}>
-                    <Card className="h-full overflow-hidden p-0 transition-shadow hover:shadow-md">
-                      <div className="relative aspect-[4/3] w-full">
+                    <Card className="overflow-hidden p-0 transition-shadow hover:shadow-md">
+                      <div className="relative aspect-[21/6] w-full">
                         <Image
                           src={image}
                           alt={doc.title}
                           fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          sizes="100vw"
                           className="object-cover"
                         />
                         {category ? (

@@ -14,6 +14,9 @@ import { StaffRowActions } from "./staff-row-actions";
 
 export default async function AdminStaffPage() {
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   const { data: staff } = await supabase
     .from("staff")
     .select("id, email, created_at")
@@ -45,7 +48,7 @@ export default async function AdminStaffPage() {
                 <TableCell className="font-medium">{s.email}</TableCell>
                 <TableCell>{formatVNDate(s.created_at)}</TableCell>
                 <TableCell>
-                  <StaffRowActions id={s.id} email={s.email} />
+                  <StaffRowActions id={s.id} email={s.email} isSelf={s.email === user?.email?.toLowerCase()} />
                 </TableCell>
               </TableRow>
             ))}

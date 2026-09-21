@@ -27,6 +27,18 @@ export async function addStaff(_prevState: ActionState, formData: FormData): Pro
 export async function removeStaff(id: string) {
   const supabase = await createClient();
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: target } = await supabase.from("staff").select("email").eq("id", id).single();
+  if (target && user?.email && target.email.toLowerCase() === user.email.toLowerCase()) {
+    // Deleting your own row makes is_staff() false for the rest of this
+    // request, which hides the whole staff table from you via RLS (looks
+    // like everything got wiped, not just your row). Block it up front.
+    throw new Error("Không thể tự xóa quyền quản trị của chính mình.");
+  }
+
   const { count } = await supabase.from("staff").select("id", { count: "exact", head: true });
   if ((count ?? 0) <= 1) {
     throw new Error("Không thể xóa quản trị viên cuối cùng.");
