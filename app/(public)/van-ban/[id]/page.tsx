@@ -69,6 +69,7 @@ export default async function DocumentDetailPage({
 
       <Button
         className="mt-8"
+        nativeButton={false}
         render={
           <a href={doc.file_url} target="_blank" rel="noopener noreferrer">
             Xem / tải file PDF

@@ -42,6 +42,7 @@ export function DocumentActions({ id, status }: { id: string; status: DocumentSt
       <Button
         size="sm"
         variant="outline"
+        nativeButton={false}
         render={<Link href={`/admin/documents/${id}/edit`}>Sửa</Link>}
       />
       <Button size="sm" variant="destructive" disabled={pending} onClick={onDelete}>

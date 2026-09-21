@@ -17,14 +17,14 @@ export default async function AdminDocumentsPage() {
   const supabase = await createClient();
   const { data: documents } = await supabase
     .from("documents")
-    .select("id, title, document_number, signed_date, status, document_categories(label_vi)")
+    .select("id, title, document_number, signed_date, status, file_url, document_categories(label_vi)")
     .order("signed_date", { ascending: false });
 
   return (
     <div>
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight">Tài liệu</h1>
-        <Button render={<Link href="/admin/documents/new">+ Thêm tài liệu</Link>} />
+        <Button nativeButton={false} render={<Link href="/admin/documents/new">+ Thêm tài liệu</Link>} />
       </div>
 
       <div className="mt-6 rounded-lg border bg-background">
@@ -45,7 +45,16 @@ export default async function AdminDocumentsPage() {
                 : doc.document_categories;
               return (
                 <TableRow key={doc.id}>
-                  <TableCell className="font-medium">{doc.title}</TableCell>
+                  <TableCell className="font-medium">
+                    <a
+                      href={doc.file_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary hover:underline"
+                    >
+                      {doc.title}
+                    </a>
+                  </TableCell>
                   <TableCell>{category?.label_vi ?? "-"}</TableCell>
                   <TableCell>{formatVNDate(doc.signed_date)}</TableCell>
                   <TableCell>

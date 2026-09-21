@@ -64,6 +64,7 @@ export default async function CoursesPage() {
               <Button
                 variant="outline"
                 className="mt-2 w-fit"
+                nativeButton={false}
                 render={<Link href={`/van-ban/${latestFeeDoc.id}`}>Xem chi tiết</Link>}
               />
             </div>

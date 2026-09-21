@@ -30,8 +30,13 @@ export default function HomePage() {
             và minh bạch về học phí.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Button size="lg" render={<Link href="/khoa-hoc">Xem khóa học & học phí</Link>} />
-            <Button size="lg" variant="outline" render={<Link href="/van-ban">Thông báo & văn bản</Link>} />
+            <Button size="lg" nativeButton={false} render={<Link href="/khoa-hoc">Xem khóa học & học phí</Link>} />
+            <Button
+              size="lg"
+              variant="outline"
+              nativeButton={false}
+              render={<Link href="/van-ban">Thông báo & văn bản</Link>}
+            />
           </div>
         </div>
       </section>
