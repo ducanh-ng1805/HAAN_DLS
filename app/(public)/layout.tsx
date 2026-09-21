@@ -21,12 +21,12 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           >
             <Image
               src="/logo.png"
-              alt="Trung tâm giáo dục nghề nghiệp Hà An"
+              alt="Trung tâm đào tạo & sát hạch Hà An"
               width={36}
               height={36}
               className="shrink-0 rounded"
             />
-            <span className="leading-tight">Trung tâm giáo dục nghề nghiệp Hà An</span>
+            <span className="leading-tight">TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN</span>
           </Link>
           <nav className="hidden gap-6 text-sm font-medium sm:flex">
             {NAV_LINKS.map((link) => (
@@ -51,14 +51,14 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               <div className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-white">
                 <Image
                   src="/logo.png"
-                  alt="Trung tâm giáo dục nghề nghiệp Hà An"
+                  alt="Trung tâm đào tạo & sát hạch Hà An"
                   width={28}
                   height={28}
                   className="shrink-0 rounded"
                 />
-                Trung tâm giáo dục nghề nghiệp Hà An
+                TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
               </div>
-              <p>Đào tạo lái xe uy tín, đúng quy định.</p>
+              <p>TIÊN PHONG VỀ ĐÀO TẠO & SÁT HẠCH LÁI XE</p>
             </div>
             <div>
               <div className="mb-2 font-medium text-white">Liên kết</div>
@@ -92,7 +92,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             </div>
           </div>
           <div className="mt-8 border-t border-white/15 pt-4 text-white/60">
-            © {new Date().getFullYear()} Trung tâm giáo dục nghề nghiệp Hà An. Bảo lưu mọi quyền.
+            © {new Date().getFullYear()} TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN. Bảo lưu mọi quyền.
           </div>
         </div>
       </footer>

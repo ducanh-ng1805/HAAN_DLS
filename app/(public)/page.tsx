@@ -94,7 +94,7 @@ export default async function HomePage() {
       <section className="relative isolate overflow-hidden">
         <Image
           src="/images/hero-fleet.jpg"
-          alt="Đội xe sát hạch của Trung tâm giáo dục nghề nghiệp Hà An"
+          alt="Đội xe sát hạch của Trung tâm đào tạo & sát hạch Hà An"
           fill
           priority
           sizes="100vw"
@@ -108,8 +108,11 @@ export default async function HomePage() {
           }}
         />
         <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-24 sm:py-32">
+          <span className="font-heading text-sm font-semibold tracking-[0.2em] text-white/80">
+            TIÊN PHONG VỀ ĐÀO TẠO & SÁT HẠCH LÁI XE
+          </span>
           <h1 className="text-4xl font-bold tracking-wide text-white sm:text-5xl">
-            Trung tâm giáo dục nghề nghiệp Hà An
+            TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
           </h1>
           <p className="max-w-2xl text-lg text-white/85">
             Đồng hành cùng học viên trên hành trình lấy bằng lái xe an toàn, đúng quy định

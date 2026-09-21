@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 const GALLERY = [
   {
     src: "/images/gallery/khai-giang-tap-huan.jpg",
-    alt: "Lễ khai giảng lớp tập huấn giáo viên dạy thực hành tại Trung tâm giáo dục nghề nghiệp Hà An",
+    alt: "Lễ khai giảng lớp tập huấn giáo viên dạy thực hành tại Trung tâm đào tạo & sát hạch Hà An",
     caption: "Khai giảng lớp tập huấn giáo viên dạy thực hành",
   },
   {
@@ -28,12 +28,12 @@ const GALLERY = [
   },
   {
     src: "/images/gallery/hoi-thi-giao-vien.jpg",
-    alt: "Hội thi giáo viên dạy giỏi tại Trung tâm giáo dục nghề nghiệp Hà An",
+    alt: "Hội thi giáo viên dạy giỏi tại Trung tâm đào tạo & sát hạch Hà An",
     caption: "Hội thi giáo viên dạy giỏi",
   },
   {
     src: "/images/gallery/giai-bong-da.jpg",
-    alt: "Trung tâm giáo dục nghề nghiệp Hà An tài trợ giải bóng đá nam học sinh sinh viên",
+    alt: "Trung tâm đào tạo & sát hạch Hà An tài trợ giải bóng đá nam học sinh sinh viên",
     caption: "Đồng hành cùng phong trào thể thao học sinh, sinh viên",
   },
   {
@@ -50,9 +50,9 @@ export default function AboutPage() {
         <h1 className="text-3xl font-bold tracking-wide">Giới thiệu</h1>
         <div className="prose prose-neutral mt-6 max-w-none text-muted-foreground">
           <p>
-            Trung tâm giáo dục nghề nghiệp Hà An là đơn vị đào tạo và sát hạch lái xe cơ giới
-            đường bộ, với đội ngũ giáo viên giàu kinh nghiệm, đội xe sát hạch hiện đại và
-            chương trình đào tạo bài bản, đúng quy định.
+            Trung tâm đào tạo & sát hạch Hà An là đơn vị đào tạo và sát hạch lái xe cơ giới
+            đường bộ, tiên phong về đào tạo & sát hạch lái xe với đội ngũ giáo viên giàu kinh
+            nghiệm, đội xe sát hạch hiện đại và chương trình đào tạo bài bản, đúng quy định.
           </p>
           <p>
             Bên cạnh chuyên môn đào tạo, Trung tâm thường xuyên tổ chức các hoạt động tập
