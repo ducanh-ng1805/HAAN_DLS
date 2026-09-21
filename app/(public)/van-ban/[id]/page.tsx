@@ -51,7 +51,11 @@ export default async function DocumentDetailPage({
 
       <div className="mt-4 flex items-start justify-between gap-4">
         <h1 className="text-2xl font-bold tracking-tight">{doc.title}</h1>
-        {category ? <Badge variant="secondary">{category.label_vi}</Badge> : null}
+        {category ? (
+          <Badge variant="secondary" className="border-transparent bg-primary/10 text-primary">
+            {category.label_vi}
+          </Badge>
+        ) : null}
       </div>
 
       <div className="mt-3 space-y-1 text-sm text-muted-foreground">

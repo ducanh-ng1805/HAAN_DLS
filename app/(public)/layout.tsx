@@ -12,9 +12,10 @@ const NAV_LINKS = [
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <div className="h-1 bg-primary" />
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Link href="/" className="flex items-center gap-2 font-heading text-lg font-semibold text-primary">
             <Image src="/logo.png" alt="HAAN DLS" width={36} height={36} className="rounded" />
             <span>HAAN DLS</span>
           </Link>
@@ -23,7 +24,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground transition-colors hover:text-primary"
               >
                 {link.label}
               </Link>
@@ -34,22 +35,22 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t bg-muted/30">
-        <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-muted-foreground">
+      <footer className="bg-primary text-white">
+        <div className="mx-auto max-w-6xl px-4 py-12 text-sm text-white/75">
           <div className="grid gap-8 sm:grid-cols-3">
             <div>
-              <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
+              <div className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-white">
                 <Image src="/logo.png" alt="HAAN DLS" width={28} height={28} className="rounded" />
                 HAAN DLS
               </div>
               <p>Trung tâm đào tạo lái xe HAAN DLS.</p>
             </div>
             <div>
-              <div className="mb-2 font-medium text-foreground">Liên kết</div>
+              <div className="mb-2 font-medium text-white">Liên kết</div>
               <ul className="space-y-1">
                 {NAV_LINKS.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="hover:text-foreground">
+                    <Link href={link.href} className="transition-colors hover:text-white">
                       {link.label}
                     </Link>
                   </li>
@@ -57,11 +58,11 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               </ul>
             </div>
             <div>
-              <div className="mb-2 font-medium text-foreground">Liên hệ</div>
+              <div className="mb-2 font-medium text-white">Liên hệ</div>
               <p>Thông tin liên hệ sẽ được cập nhật.</p>
             </div>
           </div>
-          <div className="mt-8 border-t pt-4">
+          <div className="mt-8 border-t border-white/15 pt-4 text-white/60">
             © {new Date().getFullYear()} HAAN DLS. Bảo lưu mọi quyền.
           </div>
         </div>

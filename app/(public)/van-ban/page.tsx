@@ -49,8 +49,10 @@ export default async function DocumentsPage({
         <Link
           href="/van-ban"
           className={cn(
-            "rounded-full border px-3 py-1 text-sm",
-            !activeCategory ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-accent"
+            "rounded-full border px-3 py-1 text-sm transition-colors",
+            !activeCategory
+              ? "border-primary bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:border-primary/40 hover:bg-accent hover:text-primary"
           )}
         >
           Tất cả
@@ -60,10 +62,10 @@ export default async function DocumentsPage({
             key={cat.id}
             href={`/van-ban?category=${cat.slug}`}
             className={cn(
-              "rounded-full border px-3 py-1 text-sm",
+              "rounded-full border px-3 py-1 text-sm transition-colors",
               activeCategory === cat.slug
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-accent"
+                ? "border-primary bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:border-primary/40 hover:bg-accent hover:text-primary"
             )}
           >
             {cat.label_vi}
@@ -82,7 +84,11 @@ export default async function DocumentsPage({
                 <Card className="transition-colors hover:border-primary/50">
                   <CardHeader className="flex-row items-start justify-between gap-4 space-y-0">
                     <CardTitle className="text-base">{doc.title}</CardTitle>
-                    {category ? <Badge variant="secondary">{category.label_vi}</Badge> : null}
+                    {category ? (
+                      <Badge variant="secondary" className="border-transparent bg-primary/10 text-primary">
+                        {category.label_vi}
+                      </Badge>
+                    ) : null}
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground">
                     {doc.document_number ? <span>Số: {doc.document_number} · </span> : null}
