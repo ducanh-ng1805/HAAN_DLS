@@ -22,10 +22,11 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "HAAN DLS - Trung tâm đào tạo lái xe",
-    template: "%s | HAAN DLS",
+    default: "Trung tâm giáo dục nghề nghiệp Hà An",
+    template: "%s | Trung tâm giáo dục nghề nghiệp Hà An",
   },
-  description: "Trung tâm đào tạo lái xe HAAN DLS - thông tin khóa học, học phí và văn bản chính thức.",
+  description:
+    "Trung tâm giáo dục nghề nghiệp Hà An - đào tạo lái xe: thông tin khóa học, học phí và văn bản chính thức.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -17,7 +17,7 @@ const CATEGORY_STYLE: Record<string, { badge: string }> = {
 };
 const DEFAULT_STYLE = { badge: "bg-primary/10 text-primary" };
 
-// Pool of real HAAN DLS photos to illustrate news items. Picked per title
+// Pool of real center photos to illustrate news items. Picked per title
 // keyword where possible, then de-duplicated against the pool so no two
 // items in the same list ever show the same photo.
 const NEWS_IMAGE_POOL = [
@@ -94,7 +94,7 @@ export default async function HomePage() {
       <section className="relative isolate overflow-hidden">
         <Image
           src="/images/hero-fleet.jpg"
-          alt="Đội xe sát hạch của Trung tâm đào tạo lái xe HAAN DLS"
+          alt="Đội xe sát hạch của Trung tâm giáo dục nghề nghiệp Hà An"
           fill
           priority
           sizes="100vw"
@@ -109,7 +109,7 @@ export default async function HomePage() {
         />
         <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-24 sm:py-32">
           <h1 className="text-4xl font-bold tracking-wide text-white sm:text-5xl">
-            Trung tâm đào tạo lái xe HAAN DLS
+            Trung tâm giáo dục nghề nghiệp Hà An
           </h1>
           <p className="max-w-2xl text-lg text-white/85">
             Đồng hành cùng học viên trên hành trình lấy bằng lái xe an toàn, đúng quy định

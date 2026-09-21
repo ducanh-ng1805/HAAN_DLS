@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 const GALLERY = [
   {
     src: "/images/gallery/khai-giang-tap-huan.jpg",
-    alt: "Lễ khai giảng lớp tập huấn giáo viên dạy thực hành tại HAAN DLS",
+    alt: "Lễ khai giảng lớp tập huấn giáo viên dạy thực hành tại Trung tâm giáo dục nghề nghiệp Hà An",
     caption: "Khai giảng lớp tập huấn giáo viên dạy thực hành",
   },
   {
@@ -33,7 +33,7 @@ const GALLERY = [
   },
   {
     src: "/images/gallery/giai-bong-da.jpg",
-    alt: "HAAN DLS tài trợ giải bóng đá nam học sinh sinh viên",
+    alt: "Trung tâm giáo dục nghề nghiệp Hà An tài trợ giải bóng đá nam học sinh sinh viên",
     caption: "Đồng hành cùng phong trào thể thao học sinh, sinh viên",
   },
   {
@@ -50,12 +50,12 @@ export default function AboutPage() {
         <h1 className="text-3xl font-bold tracking-wide">Giới thiệu</h1>
         <div className="prose prose-neutral mt-6 max-w-none text-muted-foreground">
           <p>
-            Trung tâm đào tạo lái xe HAAN DLS là đơn vị đào tạo và sát hạch lái xe cơ giới
+            Trung tâm giáo dục nghề nghiệp Hà An là đơn vị đào tạo và sát hạch lái xe cơ giới
             đường bộ, với đội ngũ giáo viên giàu kinh nghiệm, đội xe sát hạch hiện đại và
             chương trình đào tạo bài bản, đúng quy định.
           </p>
           <p>
-            Bên cạnh chuyên môn đào tạo, HAAN DLS thường xuyên tổ chức các hoạt động tập
+            Bên cạnh chuyên môn đào tạo, Trung tâm thường xuyên tổ chức các hoạt động tập
             huấn nâng cao nghiệp vụ giáo viên, giao lưu văn hóa - thể thao, cùng những dịp
             kỷ niệm ý nghĩa dành cho cán bộ, giáo viên và học viên.
           </p>
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
       <div className="border-t bg-muted/20">
         <div className="mx-auto max-w-6xl px-4 py-16">
-          <h2 className="text-2xl font-bold tracking-wide">Hoạt động tại HAAN DLS</h2>
+          <h2 className="text-2xl font-bold tracking-wide">Hoạt động tại Trung tâm</h2>
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {GALLERY.map((item) => (
               <figure

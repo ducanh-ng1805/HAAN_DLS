@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "cn";
 
-const links = [
-  { href: "/admin/documents", label: "Tài liệu" },
-  { href: "/admin/staff", label: "Quản trị viên" },
-];
-
-export function AdminNav() {
+export function AdminNav({ isSuperAdmin }: { isSuperAdmin: boolean }) {
   const pathname = usePathname();
+
+  const links = [
+    { href: "/admin/documents", label: "Tài liệu" },
+    ...(isSuperAdmin ? [{ href: "/admin/staff", label: "Quản trị viên" }] : []),
+  ];
 
   return (
     <nav className="flex items-center gap-4 text-sm">

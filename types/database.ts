@@ -3,6 +3,7 @@
 //   npx supabase gen types typescript --project-id <ref> > types/database.ts
 
 export type DocumentStatus = "draft" | "published";
+export type StaffRole = "super_admin" | "editor";
 
 export interface Database {
   public: {
@@ -85,23 +86,31 @@ export interface Database {
         Row: {
           id: string;
           email: string;
+          role: StaffRole;
           created_at: string;
         };
         Insert: {
           id?: string;
           email: string;
+          role?: StaffRole;
           created_at?: string;
         };
         Update: {
           id?: string;
           email?: string;
+          role?: StaffRole;
           created_at?: string;
         };
         Relationships: [];
       };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      is_super_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
+    };
   };
 }
 
