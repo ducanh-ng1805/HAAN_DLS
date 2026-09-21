@@ -74,7 +74,21 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             </div>
             <div>
               <div className="mb-2 font-medium text-white">Liên hệ</div>
-              <p>Thông tin liên hệ sẽ được cập nhật.</p>
+              <ul className="space-y-1">
+                <li>Xóm Thiên Thai, Xã Toàn Lưu, Tỉnh Hà Tĩnh</li>
+                <li>
+                  Hotline:{" "}
+                  <a href="tel:0971982689" className="transition-colors hover:text-white">
+                    0971 982 689
+                  </a>
+                </li>
+                <li>
+                  Email:{" "}
+                  <a href="mailto:ttgdnnhaan@haandls.com" className="transition-colors hover:text-white">
+                    ttgdnnhaan@haandls.com
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="mt-8 border-t border-white/15 pt-4 text-white/60">
