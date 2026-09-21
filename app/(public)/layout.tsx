@@ -20,7 +20,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             className="flex items-center gap-2 font-heading text-base font-semibold text-primary sm:text-lg"
           >
             <Image
-              src="/logo.png"
+              src="/logo.jpg"
               alt="Trung tâm đào tạo & sát hạch Hà An"
               width={36}
               height={36}
@@ -50,7 +50,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             <div>
               <div className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-white">
                 <Image
-                  src="/logo.png"
+                  src="/logo.jpg"
                   alt="Trung tâm đào tạo & sát hạch Hà An"
                   width={28}
                   height={28}

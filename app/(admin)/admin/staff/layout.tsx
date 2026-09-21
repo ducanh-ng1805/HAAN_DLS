@@ -24,7 +24,7 @@ export default async function AdminStaffLayout({
           <div className="flex items-center gap-8">
             <Link href="/admin/documents" className="flex items-center gap-2 font-semibold">
               <Image
-                src="/logo.png"
+                src="/logo.jpg"
                 alt="Trung tâm đào tạo & sát hạch Hà An"
                 width={32}
                 height={32}

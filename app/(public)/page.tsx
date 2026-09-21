@@ -91,43 +91,27 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="relative isolate overflow-hidden">
-        <Image
-          src="/images/hero-fleet.jpg"
-          alt="Đội xe sát hạch của Trung tâm đào tạo & sát hạch Hà An"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.18) 68%, rgba(0,0,0,0) 100%), linear-gradient(0deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 40%)",
-          }}
-        />
-        <div className="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-24 sm:py-32">
-          <span className="font-heading text-sm font-semibold tracking-[0.2em] text-white/80">
-            TIÊN PHONG VỀ ĐÀO TẠO & SÁT HẠCH LÁI XE
-          </span>
-          <h1 className="text-4xl font-bold tracking-wide text-white sm:text-5xl">
-            TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN
-          </h1>
-          <p className="max-w-2xl text-lg text-white/85">
-            Đồng hành cùng học viên trên hành trình lấy bằng lái xe an toàn, đúng quy định
-            và minh bạch về học phí.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button size="lg" nativeButton={false} render={<Link href="/khoa-hoc">Xem khóa học & học phí</Link>} />
-            <Button
-              size="lg"
-              variant="outline"
-              nativeButton={false}
-              className="border-white/60 bg-white/5 text-white hover:bg-white/15 hover:text-white"
-              render={<Link href="/van-ban">Thông báo & văn bản</Link>}
-            />
-          </div>
+      <section className="bg-primary">
+        <h1 className="sr-only">TRUNG TÂM ĐÀO TẠO & SÁT HẠCH HÀ AN</h1>
+        <div className="relative aspect-[1242/475] w-full">
+          <Image
+            src="/images/hero-cover.jpg"
+            alt="Trung tâm đào tạo & sát hạch Hà An - Tiên phong về đào tạo & sát hạch lái xe"
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain"
+          />
+        </div>
+        <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-3 px-4 py-8 sm:justify-start">
+          <Button size="lg" nativeButton={false} render={<Link href="/khoa-hoc">Xem khóa học & học phí</Link>} />
+          <Button
+            size="lg"
+            variant="outline"
+            nativeButton={false}
+            className="border-white/60 bg-white/5 text-white hover:bg-white/15 hover:text-white"
+            render={<Link href="/van-ban">Thông báo & văn bản</Link>}
+          />
         </div>
       </section>
 
