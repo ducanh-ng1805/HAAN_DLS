@@ -56,9 +56,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                 <Image
                   src="/logo-white.png"
                   alt="Trung tâm đào tạo & sát hạch Hà An"
-                  width={99}
-                  height={33}
-                  className="shrink-0"
+                  width={40}
+                  height={40}
+                  className="shrink-0 rounded"
                 />
                 <span className="flex flex-col leading-tight">
                   <span className="text-base font-semibold sm:text-lg">
