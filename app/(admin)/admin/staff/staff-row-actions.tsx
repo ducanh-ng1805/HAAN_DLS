@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { removeStaff } from "@/app/actions/staff";
+import { ResetStaffPasswordDialog } from "./reset-staff-password-dialog";
 
 export function StaffRowActions({ id, email, isSelf }: { id: string; email: string; isSelf: boolean }) {
   const [pending, startTransition] = useTransition();
@@ -25,7 +26,8 @@ export function StaffRowActions({ id, email, isSelf }: { id: string; email: stri
   }
 
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end gap-2">
+      <ResetStaffPasswordDialog id={id} email={email} />
       <Button size="sm" variant="destructive" disabled={pending} onClick={onDelete}>
         Xóa
       </Button>

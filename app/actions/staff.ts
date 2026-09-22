@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { isSuperAdmin } from "@/lib/supabase/roles";
 import { staffFormSchema } from "@/lib/schemas/staff";
 
 type ActionState = { error?: string } | undefined;
@@ -65,4 +67,48 @@ export async function removeStaff(id: string) {
   const { error } = await supabase.from("staff").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/staff");
+}
+
+export async function resetStaffPassword(
+  _prevState: { error?: string; success?: boolean } | undefined,
+  formData: FormData
+) {
+  const id = String(formData.get("id") ?? "");
+  const password = String(formData.get("password") ?? "");
+  const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+  const supabase = await createClient();
+  if (!(await isSuperAdmin(supabase))) {
+    return { error: "Bạn không có quyền thực hiện thao tác này." };
+  }
+
+  if (password.length < 8) {
+    return { error: "Mật khẩu mới phải có ít nhất 8 ký tự." };
+  }
+  if (password !== confirmPassword) {
+    return { error: "Mật khẩu nhập lại không khớp." };
+  }
+
+  const { data: target } = await supabase.from("staff").select("email").eq("id", id).single();
+  if (!target) {
+    return { error: "Không tìm thấy thành viên này." };
+  }
+
+  const admin = createAdminClient();
+  const { data: list, error: listError } = await admin.auth.admin.listUsers({ perPage: 1000 });
+  if (listError) {
+    return { error: "Không thể tra cứu tài khoản đăng nhập." };
+  }
+
+  const authUser = list.users.find((u) => u.email?.toLowerCase() === target.email.toLowerCase());
+  if (!authUser) {
+    return { error: "Thành viên này chưa có tài khoản đăng nhập trên hệ thống." };
+  }
+
+  const { error } = await admin.auth.admin.updateUserById(authUser.id, { password });
+  if (error) {
+    return { error: "Đổi mật khẩu thất bại. Vui lòng thử lại." };
+  }
+
+  return { success: true };
 }
