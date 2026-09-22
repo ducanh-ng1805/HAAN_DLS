@@ -56,28 +56,44 @@ export function DocumentActions({
   }
 
   return (
-    <div className="flex justify-end gap-2">
-      <Button
-        size="icon-sm"
-        variant="outline"
-        disabled={pending}
-        onClick={toggleFeatured}
-        title={featured ? "Bỏ đánh dấu nổi bật" : "Đánh dấu nổi bật (hiện ở trang chủ)"}
-      >
-        <Star className={cn("size-4", featured && "fill-amber-400 text-amber-500")} />
-      </Button>
-      <Button size="sm" variant="outline" disabled={pending} onClick={toggleStatus}>
-        {status === "published" ? "Ẩn" : "Đăng"}
-      </Button>
-      <Button
-        size="sm"
-        variant="outline"
-        nativeButton={false}
-        render={<Link href={`/admin/documents/${id}/edit`}>Sửa</Link>}
-      />
-      <Button size="sm" variant="destructive" disabled={pending} onClick={onDelete}>
-        Xóa
-      </Button>
+    <div className="flex justify-end">
+      <div className="inline-flex items-center divide-x overflow-hidden rounded-md border">
+        <Button
+          size="icon-sm"
+          variant="ghost"
+          className="rounded-none"
+          disabled={pending}
+          onClick={toggleFeatured}
+          title={featured ? "Bỏ đánh dấu nổi bật" : "Đánh dấu nổi bật (hiện ở trang chủ)"}
+        >
+          <Star className={cn("size-4", featured && "fill-amber-400 text-amber-500")} />
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="rounded-none px-2.5"
+          disabled={pending}
+          onClick={toggleStatus}
+        >
+          {status === "published" ? "Ẩn" : "Đăng"}
+        </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="rounded-none px-2.5"
+          nativeButton={false}
+          render={<Link href={`/admin/documents/${id}/edit`}>Sửa</Link>}
+        />
+        <Button
+          size="sm"
+          variant="ghost"
+          className="rounded-none px-2.5 text-destructive hover:bg-destructive/10 hover:text-destructive"
+          disabled={pending}
+          onClick={onDelete}
+        >
+          Xóa
+        </Button>
+      </div>
     </div>
   );
 }

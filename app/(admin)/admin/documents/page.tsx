@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DocumentActions } from "./document-actions";
+import { MarqueeTitle } from "./marquee-title";
 
 export default async function AdminDocumentsPage() {
   const supabase = await createClient();
@@ -34,7 +35,7 @@ export default async function AdminDocumentsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Tiêu đề</TableHead>
+              <TableHead className="w-[220px]">Tiêu đề</TableHead>
               <TableHead>Loại</TableHead>
               <TableHead>Ngày ký</TableHead>
               <TableHead>Ngày đăng</TableHead>
@@ -49,19 +50,14 @@ export default async function AdminDocumentsPage() {
                 : doc.document_categories;
               return (
                 <TableRow key={doc.id}>
-                  <TableCell className="font-medium">
+                  <TableCell className="max-w-[220px] font-medium">
                     <div className="flex items-center gap-1.5">
                       {doc.featured ? (
                         <Star className="size-3.5 shrink-0 fill-amber-400 text-amber-500" />
                       ) : null}
-                      <a
-                        href={doc.file_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary hover:underline"
-                      >
-                        {doc.title}
-                      </a>
+                      <div className="min-w-0 flex-1">
+                        <MarqueeTitle href={doc.file_url} text={doc.title} />
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell>{category?.label_vi ?? "-"}</TableCell>
