@@ -78,14 +78,8 @@ export async function resetStaffPassword(
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
   const supabase = await createClient();
-  const {
-    data: { user: debugUser },
-  } = await supabase.auth.getUser();
-  const debugRpc = await supabase.rpc("is_super_admin");
-  if (!(debugRpc.data === true)) {
-    return {
-      error: `DEBUG: user=${debugUser?.email ?? "null"} rpcData=${JSON.stringify(debugRpc.data)} rpcError=${debugRpc.error?.message ?? "none"} rpcCode=${debugRpc.error?.code ?? "none"}`,
-    };
+  if (!(await isSuperAdmin(supabase))) {
+    return { error: "Bạn không có quyền thực hiện thao tác này." };
   }
 
   if (password.length < 8) {
@@ -95,26 +89,39 @@ export async function resetStaffPassword(
     return { error: "Mật khẩu nhập lại không khớp." };
   }
 
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return {
+      error:
+        "Chưa cấu hình SUPABASE_SERVICE_ROLE_KEY trên máy chủ. Vào Vercel > Settings > Environment Variables để thêm rồi redeploy.",
+    };
+  }
+
   const { data: target } = await supabase.from("staff").select("email").eq("id", id).single();
   if (!target) {
     return { error: "Không tìm thấy thành viên này." };
   }
 
-  const admin = createAdminClient();
-  const { data: list, error: listError } = await admin.auth.admin.listUsers({ perPage: 1000 });
-  if (listError) {
-    return { error: "Không thể tra cứu tài khoản đăng nhập." };
-  }
+  try {
+    const admin = createAdminClient();
+    const { data: list, error: listError } = await admin.auth.admin.listUsers({ perPage: 1000 });
+    if (listError) {
+      return { error: `Không thể tra cứu tài khoản đăng nhập: ${listError.message}` };
+    }
 
-  const authUser = list.users.find((u) => u.email?.toLowerCase() === target.email.toLowerCase());
-  if (!authUser) {
-    return { error: "Thành viên này chưa có tài khoản đăng nhập trên hệ thống." };
-  }
+    const authUser = list.users.find((u) => u.email?.toLowerCase() === target.email.toLowerCase());
+    if (!authUser) {
+      return { error: "Thành viên này chưa có tài khoản đăng nhập trên hệ thống." };
+    }
 
-  const { error } = await admin.auth.admin.updateUserById(authUser.id, { password });
-  if (error) {
-    return { error: "Đổi mật khẩu thất bại. Vui lòng thử lại." };
-  }
+    const { error } = await admin.auth.admin.updateUserById(authUser.id, { password });
+    if (error) {
+      return { error: `Đổi mật khẩu thất bại: ${error.message}` };
+    }
 
-  return { success: true };
+    return { success: true };
+  } catch (e) {
+    return {
+      error: e instanceof Error ? `Lỗi hệ thống: ${e.message}` : "Lỗi hệ thống không xác định.",
+    };
+  }
 }
