@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { formatVNDate, shouldShowUploadedDate } from "@/lib/dates";
 
 const CATEGORY_STYLE: Record<string, { badge: string }> = {
+  "lich-thi": { badge: "bg-red-100 text-red-700" },
   "thong-bao": { badge: "bg-blue-100 text-blue-700" },
   "quyet-dinh": { badge: "bg-amber-100 text-amber-700" },
   "quy-che-tuyen-sinh": { badge: "bg-emerald-100 text-emerald-700" },
