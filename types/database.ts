@@ -66,6 +66,7 @@ export interface Database {
           document_number?: string | null;
           category_id?: string;
           signed_date?: string | null;
+          uploaded_date?: string;
           version?: number;
           status?: DocumentStatus;
           file_url?: string;

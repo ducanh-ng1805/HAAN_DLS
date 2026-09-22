@@ -42,6 +42,7 @@ export async function createDocument(_prevState: ActionState, formData: FormData
     document_number: formData.get("document_number") || undefined,
     category_id: formData.get("category_id"),
     signed_date: formData.get("signed_date") || undefined,
+    uploaded_date: formData.get("uploaded_date") || undefined,
     content: formData.get("content") || undefined,
     status: formData.get("status"),
   });
@@ -78,6 +79,7 @@ export async function createDocument(_prevState: ActionState, formData: FormData
     document_number: parsed.data.document_number || null,
     category_id: parsed.data.category_id,
     signed_date: parsed.data.signed_date || null, // null -> DB trigger defaults to uploaded_date
+    uploaded_date: parsed.data.uploaded_date || undefined, // undefined -> DB column default (today)
     content: parsed.data.content || null,
     status: parsed.data.status as DocumentStatus,
     file_url: fileUrl,
@@ -100,6 +102,7 @@ export async function updateDocument(
     document_number: formData.get("document_number") || undefined,
     category_id: formData.get("category_id"),
     signed_date: formData.get("signed_date") || undefined,
+    uploaded_date: formData.get("uploaded_date") || undefined,
     content: formData.get("content") || undefined,
     status: formData.get("status"),
   });
@@ -133,9 +136,10 @@ export async function updateDocument(
     content: parsed.data.content || null,
     status: parsed.data.status as DocumentStatus,
   };
-  // signed_date is a deliberate admin edit here, not a system re-derivation,
-  // so we only touch it when the admin actually submitted a value.
+  // signed_date/uploaded_date are deliberate admin edits here, not a system
+  // re-derivation, so we only touch each when the admin actually submitted a value.
   if (parsed.data.signed_date) update.signed_date = parsed.data.signed_date;
+  if (parsed.data.uploaded_date) update.uploaded_date = parsed.data.uploaded_date;
   if (fileUrl) update.file_url = fileUrl; // triggers version bump via DB trigger
 
   const { error } = await supabase.from("documents").update(update).eq("id", id);

@@ -15,7 +15,7 @@ export default async function EditDocumentPage({
     supabase.from("document_categories").select("id, label_vi").order("sort_order", { ascending: true }),
     supabase
       .from("documents")
-      .select("id, title, document_number, category_id, signed_date, content, status")
+      .select("id, title, document_number, category_id, signed_date, uploaded_date, content, status")
       .eq("id", id)
       .maybeSingle(),
   ]);

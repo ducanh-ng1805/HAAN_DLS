@@ -20,6 +20,7 @@ type DocumentFormValues = {
   document_number: string | null;
   category_id: string;
   signed_date: string | null;
+  uploaded_date: string | null;
   content: string | null;
   status: "draft" | "published";
 };
@@ -73,18 +74,33 @@ export function DocumentForm({
           </Select>
         </Field>
 
-        <Field>
-          <FieldLabel htmlFor="signed_date">Ngày ký</FieldLabel>
-          <Input
-            id="signed_date"
-            name="signed_date"
-            type="date"
-            defaultValue={defaultValues?.signed_date ?? ""}
-          />
-          <FieldDescription>
-            Để trống nếu chưa rõ ngày ký chính thức — hệ thống sẽ tự lấy ngày đăng tải làm ngày ký.
-          </FieldDescription>
-        </Field>
+        <div className="grid grid-cols-2 gap-4">
+          <Field>
+            <FieldLabel htmlFor="signed_date">Ngày ký</FieldLabel>
+            <Input
+              id="signed_date"
+              name="signed_date"
+              type="date"
+              defaultValue={defaultValues?.signed_date ?? ""}
+            />
+            <FieldDescription>
+              Để trống nếu chưa rõ ngày ký chính thức — hệ thống sẽ tự lấy ngày đăng tải làm ngày ký.
+            </FieldDescription>
+          </Field>
+
+          <Field>
+            <FieldLabel htmlFor="uploaded_date">Ngày đăng tải</FieldLabel>
+            <Input
+              id="uploaded_date"
+              name="uploaded_date"
+              type="date"
+              defaultValue={defaultValues?.uploaded_date ?? ""}
+            />
+            <FieldDescription>
+              {defaultValues ? "Để trống nếu không muốn đổi." : "Để trống sẽ lấy ngày hôm nay."}
+            </FieldDescription>
+          </Field>
+        </div>
 
         <Field>
           <FieldLabel htmlFor="file">File PDF</FieldLabel>
