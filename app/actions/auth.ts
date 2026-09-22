@@ -27,17 +27,35 @@ export async function changePassword(
   _prevState: { error?: string; success?: boolean } | undefined,
   formData: FormData
 ) {
+  const currentPassword = String(formData.get("currentPassword") ?? "");
   const password = String(formData.get("password") ?? "");
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
   if (password.length < 8) {
-    return { error: "Mật khẩu phải có ít nhất 8 ký tự." };
+    return { error: "Mật khẩu mới phải có ít nhất 8 ký tự." };
   }
   if (password !== confirmPassword) {
     return { error: "Mật khẩu nhập lại không khớp." };
   }
 
   const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user?.email) {
+    return { error: "Không xác định được tài khoản đang đăng nhập." };
+  }
+
+  const { error: verifyError } = await supabase.auth.signInWithPassword({
+    email: user.email,
+    password: currentPassword,
+  });
+
+  if (verifyError) {
+    return { error: "Mật khẩu hiện tại không đúng." };
+  }
+
   const { error } = await supabase.auth.updateUser({ password });
 
   if (error) {

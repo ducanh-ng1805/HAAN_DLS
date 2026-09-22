@@ -41,6 +41,10 @@ export function ChangePasswordDialog() {
         </DialogHeader>
         <form ref={formRef} action={formAction} className="flex flex-col gap-4">
           <Field>
+            <FieldLabel htmlFor="currentPassword">Mật khẩu hiện tại</FieldLabel>
+            <Input id="currentPassword" name="currentPassword" type="password" required />
+          </Field>
+          <Field>
             <FieldLabel htmlFor="password">Mật khẩu mới</FieldLabel>
             <Input id="password" name="password" type="password" required minLength={8} />
           </Field>
