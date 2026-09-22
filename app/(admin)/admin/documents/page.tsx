@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Star } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { formatVNDate } from "@/lib/dates";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +19,7 @@ export default async function AdminDocumentsPage() {
   const { data: documents } = await supabase
     .from("documents")
     .select(
-      "id, title, document_number, signed_date, uploaded_date, status, file_url, document_categories(label_vi)"
+      "id, title, document_number, signed_date, uploaded_date, status, featured, file_url, document_categories(label_vi)"
     )
     .order("signed_date", { ascending: false });
 
@@ -49,14 +50,19 @@ export default async function AdminDocumentsPage() {
               return (
                 <TableRow key={doc.id}>
                   <TableCell className="font-medium">
-                    <a
-                      href={doc.file_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary hover:underline"
-                    >
-                      {doc.title}
-                    </a>
+                    <div className="flex items-center gap-1.5">
+                      {doc.featured ? (
+                        <Star className="size-3.5 shrink-0 fill-amber-400 text-amber-500" />
+                      ) : null}
+                      <a
+                        href={doc.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary hover:underline"
+                      >
+                        {doc.title}
+                      </a>
+                    </div>
                   </TableCell>
                   <TableCell>{category?.label_vi ?? "-"}</TableCell>
                   <TableCell>{formatVNDate(doc.signed_date)}</TableCell>
@@ -67,7 +73,7 @@ export default async function AdminDocumentsPage() {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <DocumentActions id={doc.id} status={doc.status} />
+                    <DocumentActions id={doc.id} status={doc.status} featured={doc.featured} />
                   </TableCell>
                 </TableRow>
               );

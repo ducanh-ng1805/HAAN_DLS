@@ -39,6 +39,7 @@ export interface Database {
           uploaded_date: string;
           version: number;
           status: DocumentStatus;
+          featured: boolean;
           file_url: string;
           content: string | null;
           created_by: string | null;
@@ -54,6 +55,7 @@ export interface Database {
           uploaded_date?: string;
           version?: number;
           status?: DocumentStatus;
+          featured?: boolean;
           file_url: string;
           content?: string | null;
           created_by?: string | null;
@@ -69,6 +71,7 @@ export interface Database {
           uploaded_date?: string;
           version?: number;
           status?: DocumentStatus;
+          featured?: boolean;
           file_url?: string;
           content?: string | null;
           updated_at?: string;

@@ -158,6 +158,14 @@ export async function setDocumentStatus(id: string, status: DocumentStatus) {
   revalidatePath("/admin/documents");
 }
 
+export async function setDocumentFeatured(id: string, featured: boolean) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("documents").update({ featured }).eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePublicPaths(id);
+  revalidatePath("/admin/documents");
+}
+
 export async function deleteDocument(id: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("documents").delete().eq("id", id);

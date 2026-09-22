@@ -3,11 +3,21 @@
 import { useTransition } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { setDocumentStatus, deleteDocument } from "@/app/actions/documents";
+import { setDocumentStatus, setDocumentFeatured, deleteDocument } from "@/app/actions/documents";
+import { cn } from "@/lib/utils";
 import type { DocumentStatus } from "@/types/database";
 
-export function DocumentActions({ id, status }: { id: string; status: DocumentStatus }) {
+export function DocumentActions({
+  id,
+  status,
+  featured,
+}: {
+  id: string;
+  status: DocumentStatus;
+  featured: boolean;
+}) {
   const [pending, startTransition] = useTransition();
 
   function toggleStatus() {
@@ -16,6 +26,17 @@ export function DocumentActions({ id, status }: { id: string; status: DocumentSt
       try {
         await setDocumentStatus(id, next);
         toast.success(next === "published" ? "Đã đăng tài liệu." : "Đã ẩn tài liệu.");
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "Thao tác thất bại.");
+      }
+    });
+  }
+
+  function toggleFeatured() {
+    startTransition(async () => {
+      try {
+        await setDocumentFeatured(id, !featured);
+        toast.success(!featured ? "Đã đánh dấu nổi bật." : "Đã bỏ đánh dấu nổi bật.");
       } catch (e) {
         toast.error(e instanceof Error ? e.message : "Thao tác thất bại.");
       }
@@ -36,6 +57,15 @@ export function DocumentActions({ id, status }: { id: string; status: DocumentSt
 
   return (
     <div className="flex justify-end gap-2">
+      <Button
+        size="icon-sm"
+        variant="outline"
+        disabled={pending}
+        onClick={toggleFeatured}
+        title={featured ? "Bỏ đánh dấu nổi bật" : "Đánh dấu nổi bật (hiện ở trang chủ)"}
+      >
+        <Star className={cn("size-4", featured && "fill-amber-400 text-amber-500")} />
+      </Button>
       <Button size="sm" variant="outline" disabled={pending} onClick={toggleStatus}>
         {status === "published" ? "Ẩn" : "Đăng"}
       </Button>

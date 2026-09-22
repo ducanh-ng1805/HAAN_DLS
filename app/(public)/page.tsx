@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { GraduationCap, ShieldCheck, Car, ArrowRight } from "lucide-react";
+import { GraduationCap, ShieldCheck, Car, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -84,9 +84,10 @@ export default async function HomePage() {
   const { data: latestDocs } = await supabase
     .from("documents")
     .select(
-      "id, title, document_number, signed_date, uploaded_date, document_categories(slug, label_vi)"
+      "id, title, document_number, signed_date, uploaded_date, featured, document_categories(slug, label_vi)"
     )
     .eq("status", "published")
+    .order("featured", { ascending: false })
     .order("signed_date", { ascending: false })
     .limit(6);
 
@@ -171,6 +172,15 @@ export default async function HomePage() {
                             className={`absolute top-3 left-3 border-transparent ${style.badge}`}
                           >
                             {category.label_vi}
+                          </Badge>
+                        ) : null}
+                        {doc.featured ? (
+                          <Badge
+                            variant="secondary"
+                            className="absolute top-3 right-3 gap-1 border-transparent bg-amber-400 text-amber-950"
+                          >
+                            <Star className="size-3 fill-current" />
+                            Nổi bật
                           </Badge>
                         ) : null}
                       </div>
