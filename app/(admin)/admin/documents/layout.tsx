@@ -5,6 +5,7 @@ import { isSuperAdmin } from "@/lib/supabase/roles";
 import { signOut } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { AdminNav } from "../admin-nav";
+import { ChangePasswordDialog } from "../change-password-dialog";
 
 export default async function AdminDocumentsLayout({
   children,
@@ -36,6 +37,7 @@ export default async function AdminDocumentsLayout({
           </div>
           <div className="flex items-center gap-4 text-sm">
             <span className="text-muted-foreground">{user?.email}</span>
+            <ChangePasswordDialog />
             <form action={signOut}>
               <Button type="submit" variant="outline" size="sm">
                 Đăng xuất
