@@ -17,7 +17,9 @@ export default async function AdminDocumentsPage() {
   const supabase = await createClient();
   const { data: documents } = await supabase
     .from("documents")
-    .select("id, title, document_number, signed_date, status, file_url, document_categories(label_vi)")
+    .select(
+      "id, title, document_number, signed_date, uploaded_date, status, file_url, document_categories(label_vi)"
+    )
     .order("signed_date", { ascending: false });
 
   return (
@@ -34,6 +36,7 @@ export default async function AdminDocumentsPage() {
               <TableHead>Tiêu đề</TableHead>
               <TableHead>Loại</TableHead>
               <TableHead>Ngày ký</TableHead>
+              <TableHead>Ngày đăng</TableHead>
               <TableHead>Trạng thái</TableHead>
               <TableHead className="text-right">Thao tác</TableHead>
             </TableRow>
@@ -57,6 +60,7 @@ export default async function AdminDocumentsPage() {
                   </TableCell>
                   <TableCell>{category?.label_vi ?? "-"}</TableCell>
                   <TableCell>{formatVNDate(doc.signed_date)}</TableCell>
+                  <TableCell>{formatVNDate(doc.uploaded_date)}</TableCell>
                   <TableCell>
                     <Badge variant={doc.status === "published" ? "default" : "secondary"}>
                       {doc.status === "published" ? "Đã đăng" : "Nháp"}
@@ -70,7 +74,7 @@ export default async function AdminDocumentsPage() {
             })}
             {!documents?.length ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground">
+                <TableCell colSpan={6} className="text-center text-muted-foreground">
                   Chưa có tài liệu nào.
                 </TableCell>
               </TableRow>
