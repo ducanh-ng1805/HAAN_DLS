@@ -78,8 +78,14 @@ export async function resetStaffPassword(
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
   const supabase = await createClient();
-  if (!(await isSuperAdmin(supabase))) {
-    return { error: "Bạn không có quyền thực hiện thao tác này." };
+  const {
+    data: { user: debugUser },
+  } = await supabase.auth.getUser();
+  const debugRpc = await supabase.rpc("is_super_admin");
+  if (!(debugRpc.data === true)) {
+    return {
+      error: `DEBUG: user=${debugUser?.email ?? "null"} rpcData=${JSON.stringify(debugRpc.data)} rpcError=${debugRpc.error?.message ?? "none"} rpcCode=${debugRpc.error?.code ?? "none"}`,
+    };
   }
 
   if (password.length < 8) {
