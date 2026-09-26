@@ -26,7 +26,7 @@ export default async function AdminStaffLayout({
             <Link href="/admin/documents" className="flex items-center gap-2 font-semibold">
               <Image
                 src="/logo.jpg"
-                alt="Trung tâm đào tạo & sát hạch Hà An"
+                alt="Trung tâm giáo dục nghề nghiệp Hà An"
                 width={32}
                 height={32}
                 className="rounded"
