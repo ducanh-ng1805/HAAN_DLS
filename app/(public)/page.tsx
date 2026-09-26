@@ -203,29 +203,49 @@ export default async function HomePage() {
       {/* Hero */}
       <section className="bg-primary text-white">
         <h1 className="sr-only">Trung tâm giáo dục nghề nghiệp Hà An</h1>
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-16 sm:py-20 lg:px-8">
-          <span className="self-start rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold tracking-wider text-[#f3d7a6] sm:text-[13px]">
-            TIÊN PHONG VỀ ĐÀO TẠO & SÁT HẠCH LÁI XE
-          </span>
-          <p className="max-w-3xl font-sans text-4xl leading-tight font-extrabold sm:text-5xl lg:text-[56px] lg:leading-[1.12]">
-            Học lái xe ô tô hạng B, C1 tại Hà Tĩnh — đào tạo và sát hạch cùng một nơi
-          </p>
-          <p className="max-w-2xl text-base leading-relaxed text-white/75 sm:text-[19px]">
-            Chương trình đào tạo đúng quy định, giáo viên giàu kinh nghiệm, học phí công khai đầy đủ trên website.
-          </p>
-          <div className="mt-2 flex flex-col gap-3.5 sm:flex-row">
-            <Link
-              href="/khoa-hoc"
-              className="flex h-13 items-center justify-center rounded-lg bg-gold px-7 font-bold text-gold-foreground transition-opacity hover:opacity-90"
-            >
-              Xem khóa học & học phí
-            </Link>
-            <Link
-              href="/van-ban"
-              className="flex h-13 items-center justify-center rounded-lg border-[1.5px] border-white/50 px-7 font-semibold transition-colors hover:bg-white/10"
-            >
-              Thông báo & văn bản
-            </Link>
+        {/* The cover banner carries its own slogan, so the headline sits below it rather than on top. */}
+        <div className="relative aspect-[2027/776] w-full">
+          <Image
+            src="/images/hero-cover.jpg"
+            alt="Trung tâm giáo dục nghề nghiệp Hà An - Tiên phong về đào tạo & sát hạch lái xe"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14 lg:px-8">
+          <div className="flex flex-col gap-6">
+            <p className="max-w-4xl font-sans text-3xl leading-tight font-extrabold sm:text-4xl lg:text-5xl">
+              Học lái xe ô tô hạng B, C1 tại Hà Tĩnh — đào tạo và sát hạch cùng một nơi
+            </p>
+            <p className="max-w-2xl text-base leading-relaxed text-white/75 sm:text-[19px]">
+              Chương trình đào tạo đúng quy định, giáo viên giàu kinh nghiệm, học phí công khai đầy đủ trên website.
+            </p>
+            <div className="mt-2 flex flex-col gap-3.5 sm:flex-row">
+              <Link
+                href="/khoa-hoc"
+                className="flex h-13 items-center justify-center rounded-lg bg-gold px-7 font-bold text-gold-foreground transition-opacity hover:opacity-90"
+              >
+                Xem khóa học & học phí
+              </Link>
+              <Link
+                href="/van-ban"
+                className="flex h-13 items-center justify-center rounded-lg border-[1.5px] border-white/50 px-7 font-semibold transition-colors hover:bg-white/10"
+              >
+                Thông báo & văn bản
+              </Link>
+            </div>
+          </div>
+          <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl ring-1 ring-white/15">
+            <Image
+              src="/images/san-sat-hach.jpg"
+              alt="Đội xe sát hạch trước khu nhà điều hành của Trung tâm giáo dục nghề nghiệp Hà An"
+              fill
+              priority
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover object-[center_85%]"
+            />
           </div>
         </div>
       </section>
